@@ -67,7 +67,12 @@ At this point you should see **Moving Forward.c** in the main code window in the
 
 _Hint: the two "thumb tacks" I'm pointing to in the screenshot will "un-pin" the panels and let them autohide to give you more space in the editor._
 
-Like many things, there are at least two ways you can compile and download the program to the virtual robot:
+At this point we need to save our program somewhere else so ROBOTC doesn't complain we're trying to overwrite the sample program.  From the **File** Menu
+select **Save As...** and choose a place to save the file.  _For students, this would be in your student directory under your Teacher's directory (or folder)._
+
+![ROBOTC File Save As Menu Item](./images/ch1/ROBOTC_File_Save_As_Menu_Item.png)
+
+Now we can compile.  Like many things, there are at least two ways you can compile and download the program to the virtual robot:
 
 * Hitting the function key **F5**
 * Choosing the **Robot** menu item, then choosing **Compile and Download Program**
