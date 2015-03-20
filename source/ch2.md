@@ -126,5 +126,76 @@ void moveForward(float inches)
 }
 ```
 
+If you **Compile and Download** the program and then run it in Virtual Worlds (make sure you reset before you run) you should be stopped right at the first cube:
+
+![RVW Mission 1 After moveForward 36](./images/ch2/RVW_Mission_1_After_moveForward_36.png)
+
+### Reviewing moveForward
+
+I have two issues with moveForward
+
+1. The calculation of the circumference in the method
+
+    ```c
+    void moveForward(float inches)
+    {
+      float circumference = 2.52 * PI;
+    ```
+
+    There are a couple things we could do here, but we'll wait until later to deal with this.
+
+2. The **Magic Number** 75
+
+    ```c
+      setMotorTarget(leftMotor, degrees, 75);
+      setMotorTarget(rightMotor, degrees, 75);
+    ```
+
+    So, **Magic Number**s.  These are numbers that look like they probably mean something but don't do a good job of showing what they mean.  In this case it's motor power, so let's make that a bit more obvious:
+
+    ```c
+      int motorPower = 75;
+      setMotorTarget(leftMotor, degrees, motorPower);
+      setMotorTarget(rightMotor, degrees, motorPower);
+    ```
+
+    Making that change does a couple things for us.  It makes it clear that 75 is the `motorPower`, and it's also clear what the parameters are for the `setMotorTarget` function.  It also reduces duplication, in a small way, letting us change power in one place and have it update both calls.
+
+
+## Raise the Arm
+
+You'll notice from the picture above that it looks like the robot grabbed the cube, and it did.  That's one of the things about Virtual Worlds and the VEX IQ Highrise game.  Physics is hard to model so if the claw is at the cube, it'll grab it.  So we skip that step.
+
+Our next step, according to the outline, is to "Raise the Arm".  We could really do this step in a few places:
+
+* After we turn around, or
+* When we get near the goal
+
+I think it makes sense to raise it here, after we close our claw.  It feels like what we would do if we, humans, were picking up a cube.
+
+Raising the arm is just a movement, and any movement on the robot starts with a motor.  So we need to find the arm motor and move it up, some number of degrees.  If you have the instruction manual for the Clawbot, or you built your own robot, you'd know if there were gearing at the arm and which direction would raise the arm up or down.  For us, we'll experiment a bit.
+
+Let's start by adding the next step in `task main()` and stubbing out the method:
+
+```c
+void turnLeft(int degrees)
+{
+  // implementation goes here
+}
+```
+
+```c
+task main()
+{
+  moveForward(36);
+  turnLeft(180);
+}
+```
+
+I just chose `turnLeft()`, we could have just as easily had used `turnRight()`.
+
+## Turning Around
+
+So, going back to our outline, the next thing we wanted to do was "Make a U-Turn".  If you don't drive that essentially means turn back the way you came from.  Another way to say that is make a 180&#176; turn.  It doesn't matter if it's left or right at this point, 180&#176; will end up at the same place.
 
 
