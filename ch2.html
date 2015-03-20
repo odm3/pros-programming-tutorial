@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Chapter 2 - Basic Movement 1 | VEX ROBOTC Tutorial</title>
+
+    <!-- Styles and fonts -->
+    <link href="themes/glide/stylesheets/glide.css" rel="stylesheet" type="text/css" />
+    <link href="themes/glide/stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href='//fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <script src="themes/glide/javascripts/modernizr.js" type="text/javascript"></script>
+  </head>
+
+  <body class="ch2 glide">
+    <div class="page-wrapper">
+
+      <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+
+      <header class="page-header" role="banner">
+<a class="invisilink" href="./">            <span class="book-title">VEX ROBOTC Tutorial</span>
+</a>        <span class="book-author visuallyhidden">by Jeff Schoolcraft</span>
+      </header>
+
+        <div class="content-wrapper clearfix">
+
+          <section class="main-content" role="main">
+            <div class="main-content-source">
+              <h1>Chapter 2 - Basic Movement 1</h1>
+
+<p>If you look at the Training Table selection screen in Robot Virtual Worlds you&rsquo;ll see that the description for <strong>Basic Movement 1</strong> is:</p>
+
+<p>Program the robot to pick up each cube, and place them in the goal.</p>
+
+<p><img alt="Robot Virtual Worlds Basic Movement 1 Description" src="images/ch2/RVW_Basic_Movement_1_Description.png" /></p>
+
+<h2>Thinking</h2>
+
+<p>Programming isn&rsquo;t about jumping right in and typing.  You should spend some time thinking about what it is you need to do.  So let&rsquo;s think about what we need to do just to get the first green block to goal.</p>
+
+<ol>
+<li>Move forward, some distance</li>
+<li>Grab the cube</li>
+<li>Raise the arm</li>
+<li>Make a U-Turn</li>
+<li>Move forward (back to goal), some distance</li>
+<li>Open the claw to drop the cube</li>
+</ol>
+
+<p>It helps to lay out your steps in short phrases that anyone should be able to understand.  Not only does it make it easier to discuss your <strong>Idea</strong> with your teammates but it also makes it easier for Judges to understand what you&rsquo;re trying to do.</p>
+
+<p><em>HINT: Working in small steps and checking each step as you go is <strong>so much easier</strong> than trying to do everything all at once.</em></p>
+
+<p>So, let&rsquo;s get started, one small step at a time.</p>
+
+<h2>Move Forward</h2>
+
+<p>The first thing we need to do is get our robot close to the cube, we even said &ldquo;Move Forward&rdquo;, so that sounds like a good method to make.</p>
+
+<p><em>Note: There are lots of synonyms for <strong>function</strong>, including <strong>method</strong> and <strong>subroutine</strong>.  I&rsquo;ll mostly use <strong>function</strong> and <strong>method</strong>.</em></p>
+
+<p>So let&rsquo;s start out with a stub to our method:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// method body will go here
+</span><span class="p">}</span>
+</pre>
+
+<p><em>A stub is just a skeleton or placeholder for what we&rsquo;ll write later.</em></p>
+
+<p>One black square on the VEX IQ field is 12&quot;x12&quot;, so conveniently we can count from the black square where our claw is to where the green cube is and figure out that we need to go 3 feet.  </p>
+
+<p><img alt="VEX IQ Field with Distance Markings for Basic Movement 1" src="images/ch2/VEX_IQ_Field_with_Distance_Markings_for_Basic_Movement_1.png" /></p>
+
+<p>3 feet is a fairly big number when we&rsquo;re talking about only an 8 foot table, so we&rsquo;ll convert to inches meaning: We need to move our robot forward 36 inches (<code>3 feet * 12 inches/feet = 36 inches</code>).</p>
+
+<p>Figuring out how to make our robot move is something we&rsquo;ve been doing for a while, it basically boils down to the following formula:</p>
+
+<p><code>distance travelled = number of rotations * wheel circumference</code></p>
+
+<p>We only have one equation, so we can only sole for one variable.  We know distance travelled, that&rsquo;s <strong>36 inches</strong>, we can figure out <strong>wheel circumference</strong>, so that leaves only number of rotations which we&rsquo;ll solve for.</p>
+
+<p>Let&rsquo;s start with circumference, there are a few forumlas we can use:</p>
+
+<ul>
+<li>circumference = 2&pi;r</li>
+<li>circumference = &pi;d</li>
+</ul>
+
+<p>The diameter is given to use in the Robot Virtual Worlds Home Screen where we did Robot Selection:</p>
+
+<p><img alt="Robot Virtual Worlds Robot Select with Dimensions and Sensor setup" src="images/ch2/Robot_Virtual_Worlds_Robot_Select_with_Dimensions_and_Sensor_setup.png" /></p>
+
+<p>Our wheel diameter is <strong>6.4 cm</strong>.  Great, but we&rsquo;re working in inches, so we need to convert <code>cm</code> to <code>inches</code>.  That conversion looks like:</p>
+
+<p><code>6.4 cm * 1 in / 2.54 cm = 2.52 in</code></p>
+
+<p>So our wheel diameter in inches is <strong>2.52 in</strong></p>
+
+<p>Now we have all the pieces to figure out how many rotations we need to go, but we&rsquo;re going to let the computer solve that problem for us:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">float</span> <span class="n">circumference</span> <span class="o">=</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="n">PI</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">rotations</span> <span class="o">=</span> <span class="n">inches</span> <span class="o">/</span> <span class="n">circumference</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+
+<p>So at this point, if we called <code>moveForward(36)</code> in our <code>task main()</code> we should end up with <code>rotations = 4.55</code>.</p>
+
+<p>Can we make this robot move yet or what????</p>
+
+<p>Yes, let&rsquo;s figure out what function we can use.  We&rsquo;ll start with <strong>Help</strong>, you get to help in two ways:</p>
+
+<ul>
+<li>Pressing the function key <strong>F1</strong></li>
+<li>Selecting <strong>Help</strong> menu and choosing <strong>Open Help</strong></li>
+</ul>
+
+<p><img alt="ROBOTC Open Help Menu" src="images/ch2/ROBOTC_Open_Help.png" /></p>
+
+<p>If this is the first time you&rsquo;re opening up <strong>Help</strong> you might see the following dialog:</p>
+
+<p><img alt="ROBOTC Help UI Language Selector" src="images/ch2/ROBOTC_Help_UI_Language_Selector.png" /></p>
+
+<p>You&rsquo;ll want to choose <strong>English</strong> and then uncheck the box <strong>Show this dialog on startup</strong> so you don&rsquo;t have to choose English again.</p>
+
+<p>If you&rsquo;re not sure where to start, start with the <strong>Table of Contents</strong> (<strong>TOC</strong>) on the left hand side, you want to expand:</p>
+
+<ul>
+<li>Command Library - VEX IQ</li>
+<li>Text-Based ROBOTC</li>
+</ul>
+
+<p>Since we&rsquo;re worrying about moving, we need to look at <strong>Motors and Servos</strong>.</p>
+
+<p><img alt="ROBOTC Help Table of Contents with Motors and Sensors" src="images/ch2/ROBOTC_Help_Table_of_Contents_with_Motors_and_Sensors.png" /></p>
+
+<p>You can scroll through the help on the right to look for interesting functions, here are two that I think look promising:</p>
+
+<ul>
+<li><code>moveMotorTarget</code> This command tells the robot to move a relative distance, it will add or subtract distance from any previously specified targets.  It takes 3 parameters (the motor, the position in degrees, and the speed -100 to +100).</li>
+<li><code>setMotorTarget</code>  This command tells the robot to move an absolute distance.  It takes 3 parameters (the motor, the position in degrees, and the speed -100 to +100).</li>
+</ul>
+
+<p>We&rsquo;ll use <code>setMotorTarget</code>, but we need to change <strong>rotations</strong> into <strong>degrees</strong>.</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">float</span> <span class="n">circumference</span> <span class="o">=</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="n">PI</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">rotations</span> <span class="o">=</span> <span class="n">inches</span> <span class="o">/</span> <span class="n">circumference</span><span class="p">;</span>
+  <span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">rotations</span> <span class="o">*</span> <span class="mi">360</span><span class="p">;</span>
+
+  <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+  <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+  <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+  <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+  <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+  <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+            </div>
+            <nav class="main-content-nav clearfix" role="navigation">
+              <ul>
+                <li><a class="previous" href="ch1.html">Previous</a></li>
+                <li><a class="next" href="ch97-shortcuts.html">Next</a></li>
+              </ul>
+            </nav>
+          </section>
+
+          <aside class="aside-content" role="complementary">
+            <div class="aside-wrapper">
+
+              <div class="block table-of-contents">
+                <h3>Table of Contents</h3>
+                <nav role="navigation">
+                  <ul>
+                    <li class='child '><a href="./">Vex ROBOTC Tutorial</a></li><li class='child '><a href="ch1.html">Chapter 1 - Getting Started</a></li><li class='child active'><a href="ch2.html">Chapter 2 - Basic Movement 1</a></li><li class='child '><a href="ch97-shortcuts.html">Shortcuts</a></li><li class='child '><a href="ch98-glossary.html">Glossary</a></li><li class='child '><a href="ch99-helpful-links.html">Appendix</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <!--
+              <div class="block translations">
+                <h3>Book translations</h3>
+                <p>This book is translated into 
+                  <a href="#">Spanish</a>
+                  and <a href="#">English</a>.
+                  You can help with more translations <a href="https://github.com/jschoolcraft/robotc-programming-tutorial">on Github</a>.
+                </p>
+              </div>
+              -->
+            </div><!-- end aside-wrapper -->
+          </aside>
+
+        </div><!-- end content-wrapper -->
+
+      <footer class="page-footer">
+
+        <div class="footer-wrapper">
+          <!--
+          <div class="block downloads">&nbsp;
+            <h3>Downloads</h3>
+            <p>Download this book in
+                <a href="#">PDF</a>, <a href="#">mobi</a>, and <a href="#">epub</a>
+              form for free.
+            </p>
+          </div>
+          -->
+          <div class="block license">
+            <h3>License</h3>
+            <p>This book is licensed under the <a href=""></a> license.</p>
+          </div>
+
+          <div class="block open-source">
+            <h3>This book is open source</h3>
+            <p>The source of this book is <a href="https://github.com/jschoolcraft/robotc-programming-tutorial">hosted on Github</a>. Go, ahead. Check it out.</p>
+          </div>
+
+          <small class="small-text">Copyright &copy; 2015</small>
+
+        </div><!-- end footer-wrapper -->
+
+      </footer>
+
+
+    </div><!-- end page-wrapper -->
+
+    <!-- include scripts just before the close of the body tag -->
+    <script src="themes/glide/javascripts/anchor.min.js" type="text/javascript"></script>
+    <script src="themes/glide/javascripts/glide.js" type="text/javascript"></script>
+  </body>
+</html>

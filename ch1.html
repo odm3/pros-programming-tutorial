@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Chapter 1 - Getting Started | VEX ROBOTC Tutorial</title>
+
+    <!-- Styles and fonts -->
+    <link href="themes/glide/stylesheets/glide.css" rel="stylesheet" type="text/css" />
+    <link href="themes/glide/stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href='//fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <script src="themes/glide/javascripts/modernizr.js" type="text/javascript"></script>
+  </head>
+
+  <body class="ch1 glide">
+    <div class="page-wrapper">
+
+      <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+
+      <header class="page-header" role="banner">
+<a class="invisilink" href="./">            <span class="book-title">VEX ROBOTC Tutorial</span>
+</a>        <span class="book-author visuallyhidden">by Jeff Schoolcraft</span>
+      </header>
+
+        <div class="content-wrapper clearfix">
+
+          <section class="main-content" role="main">
+            <div class="main-content-source">
+              <h1>Chapter 1 - Getting Started</h1>
+
+<h2>Getting Started</h2>
+
+<p>We&rsquo;re going to be doing all of our programming inside the ROBOTC IDE and running are programs on virtual robots inside Robot Virtual Worlds.</p>
+
+<p>There&rsquo;s a few steps we need to take care of:</p>
+
+<ol>
+<li>Launch the ROBOTC IDE</li>
+<li>Set the Compiler Target to <strong>Robot Virtual Worlds</strong></li>
+<li>Choose the right Virtual World</li>
+<li>Run a sample program to make sure everything works</li>
+</ol>
+
+<h3>1. Launching the ROBOTC IDE</h3>
+
+<p>To bring up the ROBOTC IDE find and double click on the <strong>ROBOTC for VEX Robotics</strong> shortcut.  Not <strong>Graphical</strong> and not <strong>Robot Virtual Worlds</strong>:</p>
+
+<p><img alt="ROBOTC for VEX Robotics shortcut " src="images/ch1/ROBOTOC_Shortcut_on_Desktop.png" /></p>
+
+<h3>2. Setting the Compiler Target</h3>
+
+<p>Set the compiler target to <strong>Virtual Worlds</strong>:</p>
+
+<ul>
+<li>Click on the <strong>Robot</strong> menu item</li>
+<li>Then select <strong>Compiler Target</strong></li>
+<li>Then select <strong>Virtual Worlds</strong></li>
+</ul>
+
+<p><img alt="Setting Virtual Worlds as the Compiler Target" src="images/ch1/Robot_Compiler_Target_Menu.png" /></p>
+
+<p>You&rsquo;ll know you have that correct when the dot is next to <strong>Virtual Worlds</strong>.</p>
+
+<h3>3. Choose the Virtual World</h3>
+
+<p>Now that we&rsquo;ve set the Compiler Target to Robot Virtual Worlds we can chooose the correct World for our purposes:</p>
+
+<ul>
+<li>Click on the <strong>Window</strong> menu item</li>
+<li>Then <strong>Select Virtual World to Use</strong></li>
+<li>Then <strong>VEX Highrise!</strong></li>
+</ul>
+
+<p><img alt="Choosing VEX Highrise! Virtual World" src="images/ch1/Select_Virtual_World_to_Use_Menu.png" /></p>
+
+<p><em>Note: If you don&rsquo;t see <strong>Select Virtual Worlds to Use</strong> or <strong>Open RVW Level Builder Utility</strong> under the <strong>Window</strong> menu item then you probably haven&rsquo;t chosen <strong>Virtual Worlds</strong> as the compiler target, go back to Step 2.</em></p>
+
+<h3>4. Run a sample program</h3>
+
+<p>Next we&rsquo;re going to run a sample program to make sure we have everything set up correctly.</p>
+
+<p>First, go to the <strong>File</strong> menu and select <strong>Open Sample Program</strong></p>
+
+<p><img alt="Open Sample Program" src="images/ch1/File_Menu_Open_Sample_Program.png" /></p>
+
+<p>Next, inside the File Open Dialog double click on <strong>Basic Movements</strong></p>
+
+<p><img alt="Sample Programs Directory Listing" src="images/ch1/Sample_Programs_Directory_Listing.png" /></p>
+
+<p>Then open the program <strong>Moving Forward.c</strong>.  You can do this two ways:</p>
+
+<ul>
+<li>Double click on the file <strong>Moving Forward.c</strong></li>
+<li>Single click on the file <strong>Moving Forward.c</strong> and then clicking <strong>Open</strong></li>
+</ul>
+
+<p><img alt="Moving Forward Sample Program File" src="images/ch1/Moving_Forward_Sample_Program.png" /></p>
+
+<p>At this point you should see <strong>Moving Forward.c</strong> in the main code window in the ROBOTC IDE.  So we should be able to Compile, Download and Run the program.</p>
+
+<p><img alt="Moving Forward Sample Program in editor" src="images/ch1/Moving_Forward_Sample_Program_in_Editor.png" /></p>
+
+<p><em>Hint: the two &ldquo;thumb tacks&rdquo; I&rsquo;m pointing to in the screenshot will &ldquo;un-pin&rdquo; the panels and let them autohide to give you more space in the editor.</em></p>
+
+<p>At this point we need to save our program somewhere else so ROBOTC doesn&rsquo;t complain we&rsquo;re trying to overwrite the sample program.  From the <strong>File</strong> Menu
+select <strong>Save As&hellip;</strong> and choose a place to save the file.  <em>For students, this would be in your student directory under your Teacher&rsquo;s directory (or folder).</em></p>
+
+<p><img alt="ROBOTC File Save As Menu Item" src="images/ch1/ROBOTC_File_Save_As_Menu_Item.png" /></p>
+
+<p>Now we can compile.  Like many things, there are at least two ways you can compile and download the program to the virtual robot:</p>
+
+<ul>
+<li>Hitting the function key <strong>F5</strong></li>
+<li>Choosing the <strong>Robot</strong> menu item, then choosing <strong>Compile and Download Program</strong></li>
+</ul>
+
+<p><img alt="Compile and Download Program" src="images/ch1/Compile_and_Download_Program_Menu_Item.png" /></p>
+
+<p><em>Hint: If you look at the highlighted menu item, on the right you&rsquo;ll see <strong>F5</strong>, that&rsquo;s the Keyboard Shortcut for <strong>Compile and Download Program</strong>.</em></p>
+
+<p>After the program compiles it will bring up the Robot Virtual Worlds login window.  We want to log in locally as a Guest (for now):</p>
+
+<ol>
+<li>Click on the blue <strong>Log in Locally</strong> tab</li>
+<li>Click on <strong>Log In as Guest</strong> button</li>
+</ol>
+
+<p><img alt="Compile and Download Program" src="images/ch1/Robot_Virtual_Worlds_Login_Screen.png" /></p>
+
+<p>From the Home Screen we need to verify a two things:</p>
+
+<ol>
+<li>That <strong>Clawbot IQ</strong> is the selected robot</li>
+</ol>
+
+<p><img alt="Robot Virtual Worlds Home Screen and Robot Selection" src="images/ch1/Robot_Virtual_Worlds_Home_Screen.png" /></p>
+
+<ol>
+<li>That the Training Table is <strong>Basic Movement 1</strong> (do this by clicking the <strong>Training</strong> Circle, also labeled #2)</li>
+</ol>
+
+<p><img alt="Robot Virtual Worlds Training Table Selection" src="images/ch1/Robot_Virtual_Worlds_Training_Table.png" /></p>
+
+<p>Now we should be ready to go.  Press the Play Button (labeled #3) and you should see a VEX IQ Field with 3 green cubes and a Clawbot robot.</p>
+
+<p><img alt="Robot Virtual Worlds VEX IQ Field Starting Camera 1" src="images/ch1/RVW_VEX_IQ_Field_Starting_Camera_1.png" /></p>
+
+<p>Change the view to <strong>Camera 2</strong> and Hit Play.  Your robot should move forward.</p>
+
+<p><img alt="Robot Virtual Worlds VEX IQ Field Starting Camera 2" src="images/ch1/RVW_VEX_IQ_Field_Camera_View_2.png" /></p>
+
+            </div>
+            <nav class="main-content-nav clearfix" role="navigation">
+              <ul>
+                <li><a class="previous" href="./">Previous</a></li>
+                <li><a class="next" href="ch2.html">Next</a></li>
+              </ul>
+            </nav>
+          </section>
+
+          <aside class="aside-content" role="complementary">
+            <div class="aside-wrapper">
+
+              <div class="block table-of-contents">
+                <h3>Table of Contents</h3>
+                <nav role="navigation">
+                  <ul>
+                    <li class='child '><a href="./">Vex ROBOTC Tutorial</a></li><li class='child active'><a href="ch1.html">Chapter 1 - Getting Started</a></li><li class='child '><a href="ch2.html">Chapter 2 - Basic Movement 1</a></li><li class='child '><a href="ch97-shortcuts.html">Shortcuts</a></li><li class='child '><a href="ch98-glossary.html">Glossary</a></li><li class='child '><a href="ch99-helpful-links.html">Appendix</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <!--
+              <div class="block translations">
+                <h3>Book translations</h3>
+                <p>This book is translated into 
+                  <a href="#">Spanish</a>
+                  and <a href="#">English</a>.
+                  You can help with more translations <a href="https://github.com/jschoolcraft/robotc-programming-tutorial">on Github</a>.
+                </p>
+              </div>
+              -->
+            </div><!-- end aside-wrapper -->
+          </aside>
+
+        </div><!-- end content-wrapper -->
+
+      <footer class="page-footer">
+
+        <div class="footer-wrapper">
+          <!--
+          <div class="block downloads">&nbsp;
+            <h3>Downloads</h3>
+            <p>Download this book in
+                <a href="#">PDF</a>, <a href="#">mobi</a>, and <a href="#">epub</a>
+              form for free.
+            </p>
+          </div>
+          -->
+          <div class="block license">
+            <h3>License</h3>
+            <p>This book is licensed under the <a href=""></a> license.</p>
+          </div>
+
+          <div class="block open-source">
+            <h3>This book is open source</h3>
+            <p>The source of this book is <a href="https://github.com/jschoolcraft/robotc-programming-tutorial">hosted on Github</a>. Go, ahead. Check it out.</p>
+          </div>
+
+          <small class="small-text">Copyright &copy; 2015</small>
+
+        </div><!-- end footer-wrapper -->
+
+      </footer>
+
+
+    </div><!-- end page-wrapper -->
+
+    <!-- include scripts just before the close of the body tag -->
+    <script src="themes/glide/javascripts/anchor.min.js" type="text/javascript"></script>
+    <script src="themes/glide/javascripts/glide.js" type="text/javascript"></script>
+  </body>
+</html>
