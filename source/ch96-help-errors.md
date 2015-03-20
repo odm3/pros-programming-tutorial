@@ -288,3 +288,12 @@ void moveForward(float inches)
 
 You can see in the above code listing that `task main()` and its body are indented (pushed to the right).  It should be as far left as possible.  Again, if you start above the first line of code that looks wrongly indented you should be able to track down your error.
 
+## Select Communications Port for Platforms
+
+If you see the following window after you hit `F5` and you don't have a real robot your **Compiler Target** is not set for Virtual Worlds:
+
+![ROBOTC Select Communications Port for Platforms](./images/ch96/ROBOTC_Select_Communications_Port_for_Platforms.png)
+
+**FIX** Set your **Compiler Target** for **Virtual Worlds**, we walked through that in [Chapter 1 - Getting Started](./ch1.html)
+
+
