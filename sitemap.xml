@@ -14,6 +14,22 @@
       <priority>0.5</priority>
     </url>
     <url>
+      <loc>http://jschoolcraft.github.io/robotc-programming-tutorial/ch95-1-moveForward.html</loc>
+      <priority>0.5</priority>
+    </url>
+    <url>
+      <loc>http://jschoolcraft.github.io/robotc-programming-tutorial/ch95-2-moveBackward.html</loc>
+      <priority>0.5</priority>
+    </url>
+    <url>
+      <loc>http://jschoolcraft.github.io/robotc-programming-tutorial/ch95-3-spinAround.html</loc>
+      <priority>0.5</priority>
+    </url>
+    <url>
+      <loc>http://jschoolcraft.github.io/robotc-programming-tutorial/ch96-help-errors.html</loc>
+      <priority>0.5</priority>
+    </url>
+    <url>
       <loc>http://jschoolcraft.github.io/robotc-programming-tutorial/ch97-shortcuts.html</loc>
       <priority>0.5</priority>
     </url>

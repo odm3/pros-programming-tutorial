@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Help, I Have Errors | VEX ROBOTC Tutorial</title>
+
+    <!-- Styles and fonts -->
+    <link href="themes/glide/stylesheets/glide.css" rel="stylesheet" type="text/css" />
+    <link href="themes/glide/stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href='//fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <script src="themes/glide/javascripts/modernizr.js" type="text/javascript"></script>
+  </head>
+
+  <body class="ch96-help-errors glide">
+    <div class="page-wrapper">
+
+      <!--[if lt IE 7]>
+          <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+
+      <header class="page-header" role="banner">
+<a class="invisilink" href="./">            <span class="book-title">VEX ROBOTC Tutorial</span>
+</a>        <span class="book-author visuallyhidden">by Jeff Schoolcraft</span>
+      </header>
+
+        <div class="content-wrapper clearfix">
+
+          <section class="main-content" role="main">
+            <div class="main-content-source">
+              <h1>Help, I Have Errors</h1>
+
+<p>In order to make you more self sufficient, and to save my sanity :), here are a list of things I expect you to check before you ask me or your teammates for help.</p>
+
+<h2>How to Use this Page</h2>
+
+<p>Two ways to find what you&rsquo;re looking for (Starting from the first compiler message):</p>
+
+<ol>
+<li>Press <code>CTRL+F</code> and type a word or two in that box to search (use the most unique word in the compiler message)</li>
+<li>Scan through the headings (they&rsquo;re underlined) and see if you can match up a few of the words.</li>
+</ol>
+
+<p>Once you&rsquo;ve found it, then look at the details for that section and most importantly the <strong>FIX</strong> listed in each section.</p>
+
+<h2>Compiler Errors</h2>
+
+<p>Compiler Errors will, unfortunately, be a fact of life as a programmer.  Here&rsquo;s the sign that you did something wrong:</p>
+
+<p><img alt="Errors during compilation dialog box" src="images/ch96/Errors_during_compilation_dialog_box.png" /></p>
+
+<p>Sometimes the messages you get back from the compiler aren&rsquo;t completely obvious, but the more familiar you get with them the easier it&rsquo;ll be to figure out what&rsquo;s wrong with your program.  First let&rsquo;s look at where you can find your compiler messages:</p>
+
+<p><img alt="ROBOTC Compiler Messages" src="images/ch96/ROBOTC_Compiler_Messages.png" /></p>
+
+<p>Compiler Messages show up in a window pane at the bottom of the ROBOTC IDE.  Looking at the above screenshot there&rsquo;s actually a lot of information there:</p>
+
+<ul>
+<li>What line number the compiler is talking about</li>
+<li>What type of message this is (Error, Warning, Info)</li>
+<li>The actually message</li>
+</ul>
+
+<p>Let&rsquo;s quickly chat about the various Message Types:</p>
+
+<ul>
+<li><strong>Info</strong> nice to know information that the compiler discovered. These messages are really just to help you keep your code clean, as far as the compiler can tell they don&rsquo;t have the potential to cause any problems. e.g. Maybe you defined a variable to use somewhere else, but deleted that other code, so that variable is hanging around for no reason.</li>
+<li><strong>Warning</strong> the compiler is pretty sure this thing will cause a problem, just maybe not right now.  e.g. You write a <strong>function</strong> <code>moveForward(float inches)</code> but it&rsquo;s not being used.  The compiler is pretty sure you wanted to use it, but you&rsquo;re not.</li>
+<li><strong>Error</strong> something is broken and you need to fix it.</li>
+</ul>
+
+<p>In a perfect world you should strive to have <strong>no messages</strong> at all in the Compiler Errors window pane, your code will generally be cleaner.</p>
+
+<h2>Unreferenced function / Undefined Procedure</h2>
+
+<p>From the following code:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">movForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// implementation
+</span><span class="p">}</span>
+
+<span class="n">task</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">moveForward</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>You would get this pair of messages:</p>
+<pre class="highlight plaintext">*Warning*:Unreferenced function 'movForward'
+**Error**:Undefined procedure 'moveForward'
+</pre>
+
+<p>Means you have a <strong>spelling error</strong>.  It really doesn&rsquo;t matter if they&rsquo;re spelled correctly or not, all the compiler cares about is that they&rsquo;re spelled <strong>the same</strong>.</p>
+
+<p><strong>FIX</strong> Make sure the spelling is the same for whatever the compiler is complaining about.  In the above example, it&rsquo;s best to fix the function declaration and add an &lsquo;e&rsquo;:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="n">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+</pre>
+
+<h2>Undefined variable / has no read references</h2>
+
+<p>From the following code:</p>
+<pre class="highlight c"><span class="n">task</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">float</span> <span class="n">inchs</span> <span class="o">=</span> <span class="mi">36</span><span class="p">;</span>
+  <span class="n">moveForward</span><span class="p">(</span><span class="n">inches</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>You would get this pair of messages:</p>
+<pre class="highlight plaintext">**Info***:'inchs' is written but has no read references
+**Error**:Undefined variable 'inches'. 'short' assumed.
+</pre>
+
+<p>Means you have a <strong>spelling error</strong>.  It really doesn&rsquo;t matter if they&rsquo;re spelled correctly or not, all the compiler cares about is that they&rsquo;re spelled <strong>the same</strong>.</p>
+
+<p><strong>FIX</strong> Make sure the spelling is the same for whatever the compiler is complaining about.  In the above example, it&rsquo;s best to fix the variable declaration and add an &lsquo;e&rsquo;:</p>
+<pre class="highlight c">  <span class="kt">float</span> <span class="n">inches</span> <span class="o">=</span> <span class="mi">36</span><span class="p">;</span>
+</pre>
+
+<h2>No Body Declared / Defined</h2>
+
+<p>This one is pretty scary, but most of the time it&rsquo;s a simple fix.</p>
+
+<p>The following code:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="n">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">);</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">inches</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">360</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">task</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">moveForward</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>Produces the following errors:</p>
+<pre class="highlight plaintext">**Error**:No body declared for referenced procedure 'moveForward'
+**Error**:No body defined for procedure prototype 'moveForward'
+**Error**:Undefined variable 'inches'. 'short' assumed.
+**Error**:Duplicate definition for task 'main'.
+</pre>
+
+<p>Yes, that&rsquo;s a lot of messages, fortunately only a couple of them matter and the rest go away once you fix the main problem.  We&rsquo;ll start at the top and try to make sense of the messages:</p>
+
+<p><code>No body declared for referenced procedure &#39;moveForward&#39;</code> is the compiler telling you that it knows you want to use a function <code>moveForward</code> but it can&rsquo;t find it.</p>
+
+<p><code>No body defined for procedure prototype &#39;moveForward&#39;</code> is even more telling.  Prototype methods aren&rsquo;t something you&rsquo;ll get into for a long time, but essentially what they are is the method signature without the body, it looks like:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="n">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">);</span>
+</pre>
+
+<p>There isn&rsquo;t a method body here because the line ends with a <code>;</code>.  Normally we&rsquo;d put <code>{</code> and <code>}</code> after the method to fill in the body.  It even looks like we did in the code sample, but that one <code>;</code> ruined everything for us.</p>
+
+<p><strong>FIX</strong> Check the method referenced in the compiler messages and make sure:</p>
+
+<ul>
+<li>There is no semi-colon <code>;</code> on the line where you define the method</li>
+<li>Make sure the body of the method is enclosed in <code>{</code> and <code>}</code></li>
+</ul>
+
+<h2>Unexpected &lsquo;}&rsquo; During Parsing</h2>
+
+<p>Here&rsquo;s another one that gives way more error messages than you think it should.</p>
+
+<p>The following code:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="n">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">}</span>
+    <span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">inches</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">360</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">task</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">moveForward</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>Results in the following compiler complaints:</p>
+<pre class="highlight plaintext">**Error**:No body declared for procedure
+**Error**:Type mismatch with previous 'const' declaration for variable with same name
+**Error**:Undefined variable 'inches'. 'short' assumed.
+**Error**:Variable 'degrees' has been previously defined with a different value.
+**Error**:Executable statements not valid in 'main' declaration block
+**Error**:Executable statements not valid in 'main' declaration block
+**Error**:Executable statements not valid in 'main' declaration block
+**Error**:Executable statements not valid in 'main' declaration block
+**Error**:Executable statements not valid in 'main' declaration block
+**Error**:Executable statements not valid in 'main' declaration block
+**Error**:Unexpected '}' during parsing
+</pre>
+
+<p>There is a lot of noise in these messages because what you thought was the function body isn&rsquo;t.  There are a few things to focus on here:</p>
+<pre class="highlight plaintext">**Error**:No body declared for procedure
+</pre>
+
+<p>and</p>
+<pre class="highlight plaintext">**Error**:Unexpected '}' during parsing
+</pre>
+
+<p>The first hint, <code>No body declared for procedure</code> is a clear sign that we&rsquo;ve done something wrong in some method (or we actually forgot to write it).  The second hint <code>Unexpected &#39;}&#39; during parsing</code> means that we probably have some braces the wrong way.</p>
+
+<p>The second hint is actually more important here, it&rsquo;s saying that it found a close brace <code>}</code> without a corresponding open brace <code>{</code>.</p>
+
+<p><strong>FIX</strong> Look through your source code and make sure every function starts with an open brace <code>{</code> and ends with a close brace <code>}</code>.</p>
+
+<p>Another helpful hint is to check your code formatting.  From the <strong>Edit</strong> menu, select <strong>Code Formatting</strong> and <strong>Format Whole File</strong>.</p>
+
+<p><img alt="ROBOTC Code Formatting Format Whole File" src="images/ch96/ROBOTC_Code_Formatting_Format_Whole_File.png" /></p>
+
+<p>If everything is correct with your file, not missing semi-colons <code>;</code>, all the braces are the correct way and paired, you should be left with a nicely indented file.  However, if you get something that looks like this:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="n">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">inches</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">360</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+<span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+<span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+<span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+<span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+<span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+<span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>You can tell something is wrong at <code>float degrees</code> because that should be indented (moved into the right) as the method body.  That&rsquo;s a good hint to look above the first line where you see the formatting go wrong.</p>
+
+<h2>Unmatched Left Brace</h2>
+
+<p>The following code:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">inches</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">360</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+
+
+<span class="n">task</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">moveForward</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>Results in the following compiler messages:</p>
+<pre class="highlight plaintext">**Error**:Ummatched left brace '{'
+**Error**:Task 'main' is not defined at global scope level
+**Error**:Tasks must be defined at main scope level
+**Error**:Expected-&gt;'}'. Found 'EOF'
+</pre>
+
+<p>Unmatched (the spelling in the compiler message is incorrect) left brace &lsquo;<code>{</code>&rsquo; means we&rsquo;re missing a right (or closing) brace <code>}</code>.</p>
+
+<p><strong>FIX</strong> Figure out where you forgot to put a closing brace <code>}</code> and put one there :)</p>
+
+<p>Another helpful hint is to check your code formatting.  From the <strong>Edit</strong> menu, select <strong>Code Formatting</strong> and <strong>Format Whole File</strong>.</p>
+
+<p><img alt="ROBOTC Code Formatting Format Whole File" src="images/ch96/ROBOTC_Code_Formatting_Format_Whole_File.png" /></p>
+
+<p>If everything is correct with your file, not missing semi-colons <code>;</code>, all the braces are the correct way and paired, you should be left with a nicely indented file.  However, if you get something that looks like this:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">float</span> <span class="n">degrees</span> <span class="o">=</span> <span class="n">inches</span> <span class="o">/</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="mi">360</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">);</span>
+    <span class="n">waitUntilMotorStop</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">);</span>
+
+
+    <span class="n">task</span> <span class="n">main</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">moveForward</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre>
+
+<p>You can see in the above code listing that <code>task main()</code> and its body are indented (pushed to the right).  It should be as far left as possible.  Again, if you start above the first line of code that looks wrongly indented you should be able to track down your error.</p>
+
+<h2>Select Communications Port for Platforms</h2>
+
+<p>If you see the following window after you hit <code>F5</code> and you don&rsquo;t have a real robot your <strong>Compiler Target</strong> is not set for Virtual Worlds:</p>
+
+<p><img alt="ROBOTC Select Communications Port for Platforms" src="images/ch96/ROBOTC_Select_Communications_Port_for_Platforms.png" /></p>
+
+<p><strong>FIX</strong> Set your <strong>Compiler Target</strong> for <strong>Virtual Worlds</strong>, we walked through that in <a href="ch1.html">Chapter 1 - Getting Started</a></p>
+
+            </div>
+            <nav class="main-content-nav clearfix" role="navigation">
+              <ul>
+                <li><a class="previous" href="ch95-3-spinAround.html">Previous</a></li>
+                <li><a class="next" href="ch97-shortcuts.html">Next</a></li>
+              </ul>
+            </nav>
+          </section>
+
+          <aside class="aside-content" role="complementary">
+            <div class="aside-wrapper">
+
+              <div class="block table-of-contents">
+                <h3>Table of Contents</h3>
+                <nav role="navigation">
+                  <ul>
+                    <li class='child '><a href="./">Vex ROBOTC Tutorial</a></li><li class='child '><a href="ch1.html">Chapter 1 - Getting Started</a></li><li class='child '><a href="ch2.html">Chapter 2 - Basic Movement 1</a></li><li class='child '><a href="ch95-1-moveForward.html">Beginner - Move Forward</a></li><li class='child '><a href="ch95-2-moveBackward.html">Beginner - Move Backward</a></li><li class='child '><a href="ch95-3-spinAround.html">Beginner - Spin Around</a></li><li class='child active'><a href="ch96-help-errors.html">Help, I Have Errors</a></li><li class='child '><a href="ch97-shortcuts.html">Shortcuts</a></li><li class='child '><a href="ch98-glossary.html">Glossary</a></li><li class='child '><a href="ch99-helpful-links.html">Appendix</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <!--
+              <div class="block translations">
+                <h3>Book translations</h3>
+                <p>This book is translated into 
+                  <a href="#">Spanish</a>
+                  and <a href="#">English</a>.
+                  You can help with more translations <a href="https://github.com/jschoolcraft/robotc-programming-tutorial">on Github</a>.
+                </p>
+              </div>
+              -->
+            </div><!-- end aside-wrapper -->
+          </aside>
+
+        </div><!-- end content-wrapper -->
+
+      <footer class="page-footer">
+
+        <div class="footer-wrapper">
+          <!--
+          <div class="block downloads">&nbsp;
+            <h3>Downloads</h3>
+            <p>Download this book in
+                <a href="#">PDF</a>, <a href="#">mobi</a>, and <a href="#">epub</a>
+              form for free.
+            </p>
+          </div>
+          -->
+          <div class="block license">
+            <h3>License</h3>
+            <p>This book is licensed under the <a href=""></a> license.</p>
+          </div>
+
+          <div class="block open-source">
+            <h3>This book is open source</h3>
+            <p>The source of this book is <a href="https://github.com/jschoolcraft/robotc-programming-tutorial">hosted on Github</a>. Go, ahead. Check it out.</p>
+          </div>
+
+          <small class="small-text">Copyright &copy; 2015</small>
+
+        </div><!-- end footer-wrapper -->
+
+      </footer>
+
+
+    </div><!-- end page-wrapper -->
+
+    <!-- include scripts just before the close of the body tag -->
+    <script src="themes/glide/javascripts/anchor.min.js" type="text/javascript"></script>
+    <script src="themes/glide/javascripts/glide.js" type="text/javascript"></script>
+  </body>
+</html>

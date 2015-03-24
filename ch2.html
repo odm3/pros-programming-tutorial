@@ -169,11 +169,117 @@
 <span class="p">}</span>
 </pre>
 
+<p>If you <strong>Compile and Download</strong> the program and then run it in Virtual Worlds (make sure you reset before you run) you should be stopped right at the first cube:</p>
+
+<p><img alt="RVW Mission 1 After moveForward 36" src="images/ch2/RVW_Mission_1_After_moveForward_36.png" /></p>
+
+<h3>Reviewing moveForward</h3>
+
+<p>I have two issues with moveForward</p>
+
+<ol>
+<li><p>The calculation of the circumference in the method</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">moveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">inches</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">float</span> <span class="n">circumference</span> <span class="o">=</span> <span class="mi">2</span><span class="p">.</span><span class="mi">52</span> <span class="o">*</span> <span class="n">PI</span><span class="p">;</span>
+</pre>
+
+<p>There are a couple things we could do here, but we&rsquo;ll wait until later to deal with this.</p></li>
+<li><p>The <strong>Magic Number</strong> 75</p>
+<pre class="highlight c">  <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+  <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+</pre>
+
+<p>So, <strong>Magic Number</strong>s.  These are numbers that look like they probably mean something but don&rsquo;t do a good job of showing what they mean.  In this case it&rsquo;s motor power, so let&rsquo;s make that a bit more obvious:</p>
+<pre class="highlight c">  <span class="kt">int</span> <span class="n">motorPower</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+  <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">leftMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">motorPower</span><span class="p">);</span>
+  <span class="n">setMotorTarget</span><span class="p">(</span><span class="n">rightMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">motorPower</span><span class="p">);</span>
+</pre>
+
+<p>Making that change does a couple things for us.  It makes it clear that 75 is the <code>motorPower</code>, and it&rsquo;s also clear what the parameters are for the <code>setMotorTarget</code> function.  It also reduces duplication, in a small way, letting us change power in one place and have it update both calls.</p></li>
+</ol>
+
+<h2>Raise the Arm</h2>
+
+<p>You&rsquo;ll notice from the picture above that it looks like the robot grabbed the cube, and it did.  That&rsquo;s one of the things about Virtual Worlds and the VEX IQ Highrise game.  Physics is hard to model so if the claw is at the cube, it&rsquo;ll grab it.  So we skip that step.</p>
+
+<p>Our next step, according to the outline, is to &ldquo;Raise the Arm&rdquo;.  We could really do this step in a few places:</p>
+
+<ul>
+<li>After we turn around, or</li>
+<li>When we get near the goal</li>
+</ul>
+
+<p>I think it makes sense to raise it here, after we close our claw.  It feels like what we would do if we, humans, were picking up a cube.</p>
+
+<p>Raising the arm is just a movement, and any movement on the robot starts with a motor.  So we need to find the arm motor and move it up, some number of degrees.  If you have the instruction manual for the Clawbot, or you built your own robot, you&rsquo;d know if there were gearing at the arm and which direction would raise the arm up or down.  For us, we&rsquo;ll experiment a bit.</p>
+
+<p>Let&rsquo;s start by adding the next step in <code>task main()</code> and stubbing out the method:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">raiseArm</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// implementation goes here
+</span><span class="p">}</span>
+</pre>
+<pre class="highlight c"><span class="n">task</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">moveForward</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+  <span class="n">raiseArm</span><span class="p">();</span>
+<span class="p">}</span>
+</pre>
+
+<p>Now let&rsquo;s define the method:</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">raiseArm</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">degrees</span> <span class="o">=</span> <span class="mi">90</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+  <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">armMotor</span><span class="p">);</span>
+  <span class="n">moveMotorTarget</span><span class="p">(</span><span class="n">armMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+  <span class="n">waitUntilMotorMoveComplete</span><span class="p">(</span><span class="n">armMotor</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>Let&rsquo;s run the program and see how it works.</p>
+
+<p><img alt="RVW Mission 1 Raise Arm 90 Degrees" src="images/ch2/RVW_Mission_1_Raise_Arm_90_Degrees.png" /></p>
+
+<p>If you switch to view 4, like the image above, you can see we did raise the arm, but it doesn&rsquo;t look like we raised it that much.  Let&rsquo;s change the degrees to 180 and see what that looks like.</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">raiseArm</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">degrees</span> <span class="o">=</span> <span class="mi">180</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">power</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+  <span class="n">resetMotorEncoder</span><span class="p">(</span><span class="n">armMotor</span><span class="p">);</span>
+  <span class="n">moveMotorTarget</span><span class="p">(</span><span class="n">armMotor</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">power</span><span class="p">);</span>
+  <span class="n">waitUntilMotorMoveComplete</span><span class="p">(</span><span class="n">armMotor</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p><img alt="RVW Mission 1 Raise Arm 180 Degrees" src="images/ch2/RVW_Mission_1_Raise_Arm_180_Degrees.png" /></p>
+
+<p>It definitely looks like we should be able to clear the goal, so let&rsquo;s move on to the next step.</p>
+
+<h2>Turning Around</h2>
+
+<p>So, going back to our outline, the next thing we wanted to do was &ldquo;Make a U-Turn&rdquo;.  If you don&rsquo;t drive that essentially means turn back the way you came from.  Another way to say that is make a 180&#176; turn.  It doesn&rsquo;t matter if it&rsquo;s left or right at this point, 180&#176; will end up at the same place.</p>
+<pre class="highlight c"><span class="kt">void</span> <span class="nf">turnLeft</span><span class="p">(</span><span class="kt">int</span> <span class="n">degrees</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// implementation goes here
+</span><span class="p">}</span>
+</pre>
+<pre class="highlight c"><span class="n">task</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">moveForward</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+  <span class="n">raiseArm</span><span class="p">();</span>
+  <span class="n">turnLeft</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+
+<p>I just chose <code>turnLeft()</code>, we could have just as easily had used <code>turnRight()</code>.</p>
+
             </div>
             <nav class="main-content-nav clearfix" role="navigation">
               <ul>
                 <li><a class="previous" href="ch1.html">Previous</a></li>
-                <li><a class="next" href="ch97-shortcuts.html">Next</a></li>
+                <li><a class="next" href="ch95-1-moveForward.html">Next</a></li>
               </ul>
             </nav>
           </section>
@@ -185,7 +291,7 @@
                 <h3>Table of Contents</h3>
                 <nav role="navigation">
                   <ul>
-                    <li class='child '><a href="./">Vex ROBOTC Tutorial</a></li><li class='child '><a href="ch1.html">Chapter 1 - Getting Started</a></li><li class='child active'><a href="ch2.html">Chapter 2 - Basic Movement 1</a></li><li class='child '><a href="ch97-shortcuts.html">Shortcuts</a></li><li class='child '><a href="ch98-glossary.html">Glossary</a></li><li class='child '><a href="ch99-helpful-links.html">Appendix</a></li>
+                    <li class='child '><a href="./">Vex ROBOTC Tutorial</a></li><li class='child '><a href="ch1.html">Chapter 1 - Getting Started</a></li><li class='child active'><a href="ch2.html">Chapter 2 - Basic Movement 1</a></li><li class='child '><a href="ch95-1-moveForward.html">Beginner - Move Forward</a></li><li class='child '><a href="ch95-2-moveBackward.html">Beginner - Move Backward</a></li><li class='child '><a href="ch95-3-spinAround.html">Beginner - Spin Around</a></li><li class='child '><a href="ch96-help-errors.html">Help, I Have Errors</a></li><li class='child '><a href="ch97-shortcuts.html">Shortcuts</a></li><li class='child '><a href="ch98-glossary.html">Glossary</a></li><li class='child '><a href="ch99-helpful-links.html">Appendix</a></li>
                   </ul>
                 </nav>
               </div>
