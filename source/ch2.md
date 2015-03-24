@@ -178,6 +178,59 @@ Raising the arm is just a movement, and any movement on the robot starts with a 
 Let's start by adding the next step in `task main()` and stubbing out the method:
 
 ```c
+void raiseArm()
+{
+  // implementation goes here
+}
+```
+
+```c
+task main()
+{
+  moveForward(36);
+  raiseArm();
+}
+```
+
+Now let's define the method:
+
+```c
+void raiseArm()
+{
+  int degrees = 90;
+  int power = 75;
+  resetMotorEncoder(armMotor);
+  moveMotorTarget(armMotor, degrees, power);
+  waitUntilMotorMoveComplete(armMotor);
+}
+```
+
+Let's run the program and see how it works.
+
+![RVW Mission 1 Raise Arm 90 Degrees](./images/ch2/RVW_Mission_1_Raise_Arm_90_Degrees.png)
+
+If you switch to view 4, like the image above, you can see we did raise the arm, but it doesn't look like we raised it that much.  Let's change the degrees to 180 and see what that looks like.
+
+```c
+void raiseArm()
+{
+  int degrees = 180;
+  int power = 75;
+  resetMotorEncoder(armMotor);
+  moveMotorTarget(armMotor, degrees, power);
+  waitUntilMotorMoveComplete(armMotor);
+}
+```
+
+![RVW Mission 1 Raise Arm 180 Degrees](./images/ch2/RVW_Mission_1_Raise_Arm_180_Degrees.png)
+
+It definitely looks like we should be able to clear the goal, so let's move on to the next step.
+
+## Turning Around
+
+So, going back to our outline, the next thing we wanted to do was "Make a U-Turn".  If you don't drive that essentially means turn back the way you came from.  Another way to say that is make a 180&#176; turn.  It doesn't matter if it's left or right at this point, 180&#176; will end up at the same place.
+
+```c
 void turnLeft(int degrees)
 {
   // implementation goes here
@@ -188,14 +241,10 @@ void turnLeft(int degrees)
 task main()
 {
   moveForward(36);
+  raiseArm();
   turnLeft(180);
 }
 ```
 
 I just chose `turnLeft()`, we could have just as easily had used `turnRight()`.
-
-## Turning Around
-
-So, going back to our outline, the next thing we wanted to do was "Make a U-Turn".  If you don't drive that essentially means turn back the way you came from.  Another way to say that is make a 180&#176; turn.  It doesn't matter if it's left or right at this point, 180&#176; will end up at the same place.
-
 
