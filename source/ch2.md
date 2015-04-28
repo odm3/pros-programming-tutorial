@@ -1,5 +1,7 @@
 # Chapter 2 - Basic Movement 1
 
+[Video Walkthrough of Basic Movement 1](https://www.youtube.com/watch?v=aAys7nO3vSs)
+
 If you look at the Training Table selection screen in Robot Virtual Worlds you'll see that the description for **Basic Movement 1** is:
 
 Program the robot to pick up each cube, and place them in the goal.
